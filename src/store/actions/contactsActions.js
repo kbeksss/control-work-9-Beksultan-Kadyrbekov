@@ -4,7 +4,7 @@ import {
     FETCH_CONTACTS_SUCCESS,
     POST_CONTACT_ERROR,
     POST_CONTACT_REQUEST,
-    POST_CONTACT_SUCCESS
+    POST_CONTACT_SUCCESS, REMOVE_CONTACT_ERROR, REMOVE_CONTACT_REQUEST, REMOVE_CONTACT_SUCCESS
 } from "./actionTypes";
 import axiosContacts from "../../axios-contacts";
 
@@ -42,3 +42,19 @@ export const fetchContacts = () => {
     }
 };
 
+const removeContactRequest = () => ({type: REMOVE_CONTACT_REQUEST});
+const removeContactSuccess = () => ({type: REMOVE_CONTACT_SUCCESS});
+const removeContactError = () => ({type: REMOVE_CONTACT_ERROR});
+
+export const removeContact = contactId => {
+    return async dispatch => {
+        dispatch(removeContactRequest());
+        try {
+            await axiosContacts.delete('contacts/' + contactId + '.json');
+            dispatch(removeContactSuccess());
+        } catch (e) {
+            console.error('Error while deleting contact', e);
+            dispatch(removeContactError());
+        }
+    }
+};

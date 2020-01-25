@@ -10,9 +10,8 @@ const NewContact = props => {
             if(!contact.photo){
                 contact.photo = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUYmdflB0WAqh4yP1led7zKxaX1xLmfkB53NDa_zV5Ijj-raf&s'
             }
-            console.log(contact);
             await props.postContact(contact);
-
+            props.history.replace('/');
         } else {
             alert('Please fill in the blanks')
         }
