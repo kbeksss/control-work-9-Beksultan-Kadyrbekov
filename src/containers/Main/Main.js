@@ -24,6 +24,9 @@ const Main = props => {
         setCurrentContact(INITIAL_CONTACT);
         props.getContacts();
     };
+    const goToEdit = () => {
+        props.history.replace('/edit/' + currentId);
+    };
     useEffect(() => {
         props.getContacts();
         // eslint-disable-next-line
@@ -46,7 +49,7 @@ const Main = props => {
                     <Contact contact={currentContact}/>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" >Edit</Button>{' '}
+                    <Button color="primary" onClick={goToEdit} >Edit</Button>{' '}
                     <Button color="danger" onClick={removeOneContact}><i className="fas fa-trash-alt"/></Button>
                 </ModalFooter>
             </Modal>

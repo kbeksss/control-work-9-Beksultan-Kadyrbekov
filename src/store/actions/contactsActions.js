@@ -1,7 +1,7 @@
 import {
     FETCH_CONTACTS_ERROR,
     FETCH_CONTACTS_REQUEST,
-    FETCH_CONTACTS_SUCCESS,
+    FETCH_CONTACTS_SUCCESS, POST_CHANGES_ERROR, POST_CHANGES_REQUEST, POST_CHANGES_SUCCESS,
     POST_CONTACT_ERROR,
     POST_CONTACT_REQUEST,
     POST_CONTACT_SUCCESS, REMOVE_CONTACT_ERROR, REMOVE_CONTACT_REQUEST, REMOVE_CONTACT_SUCCESS
@@ -55,6 +55,23 @@ export const removeContact = contactId => {
         } catch (e) {
             console.error('Error while deleting contact', e);
             dispatch(removeContactError());
+        }
+    }
+};
+
+const postChangesRequest = () => ({type: POST_CHANGES_REQUEST});
+const postChangesSuccess = () => ({type: POST_CHANGES_SUCCESS});
+const postChangesError = () => ({type: POST_CHANGES_ERROR});
+
+export const postChanges = (contactId, contact) => {
+    return async dispatch => {
+        dispatch(postChangesRequest());
+        try {
+            await axiosContacts.put('contacts/' + contactId + '.json', contact);
+            dispatch(postChangesSuccess());
+        } catch (e) {
+            console.error('Error while changing the contact');
+            dispatch(postChangesError());
         }
     }
 };

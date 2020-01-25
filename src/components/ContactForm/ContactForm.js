@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 const INITIAL_USER = {
     name: '',
@@ -8,6 +8,12 @@ const INITIAL_USER = {
 };
 const ContactForm = props => {
     const [user, setUser] = useState(INITIAL_USER);
+    useEffect(() => {
+        if(props.currentContact){
+            setUser(props.currentContact);
+        }
+        // eslint-disable-next-line
+    }, []);
     const inputChange = (event) => {
         setUser({
             ...user,
